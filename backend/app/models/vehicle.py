@@ -1,5 +1,6 @@
 from enum import Enum
-from app.models.base import Base
+from sqlalchemy import Enum as SQLEnum
+from app.db.base import Base
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 
@@ -27,4 +28,4 @@ class Vehicle(Base):
     license_plate: Mapped[str] = mapped_column(unique=True, nullable=False)
     seating_capacity: Mapped[int] = mapped_column(nullable=False)
     vehicle_type: Mapped[VehicleType] = mapped_column(SQLEnum(VehicleType), nullable=False)   
-    bookings = Mapped[list["Booking"]] = relationship("Booking", back_populates="vehicle")
+    bookings: Mapped[list["Booking"]] = relationship("Booking", back_populates="vehicle")

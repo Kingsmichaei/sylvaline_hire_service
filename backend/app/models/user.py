@@ -17,4 +17,4 @@ class User(Base):
     is_active: Mapped[bool] = mapped_column(default=True, nullable=False)
     created_at: Mapped[datetime] = mapped_column(default=datetime.utcnow)
     updated_at: Mapped[datetime] = mapped_column(default=datetime.utcnow, onupdate=datetime.utcnow)
-    driver = Mapped["Driver | None"] = relationship("Driver", back_populates="user", uselist=False)
+    driver: Mapped["Driver | None"] = relationship("Driver", back_populates="user", uselist=False)

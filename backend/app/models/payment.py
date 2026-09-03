@@ -21,13 +21,13 @@ class Payment(Base):
     __tablename__ = "payments"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    booking_id: Mapped[int] = mapped_column(foreignKey=("bookings.id"), nullable=False)
+    booking_id: Mapped[int] = mapped_column(ForeignKey("bookings.id"), nullable=False)
     amount: Mapped[float] = mapped_column(nullable=False)
     status: Mapped[PaymentStatus] = mapped_column(SqlEnum(PaymentStatus), default=PaymentStatus.PENDING, nullable=False)
-    method: Mapped[PaymentMethod] = mapped_column(SqlEnum(PaymentMethod), nullable=False)
+    payment_method: Mapped[PaymentMethod] = mapped_column(SqlEnum(PaymentMethod), nullable=False)
     transaction_reference: Mapped[str | None] = mapped_column(unique=True, nullable=True)
     payment_reference: Mapped[str | None] = mapped_column(unique=True, nullable=True)
     created_at: Mapped[datetime] = mapped_column(default=datetime.utcnow, nullable=False)
     updated_at: Mapped[datetime] = mapped_column(default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
-    booking =  Mapped["Booking"] = relationship("Booking", back_populates="payment")
-    receipt =  Mapped["Receipt"] = relationship("Receipt", back_populates="payment", uselist=False)
+    booking: Mapped["Booking"] = relationship("Booking", back_populates="payment")
+    receipt: Mapped["Receipt"] = relationship("Receipt", back_populates="payment", uselist=False)

@@ -20,8 +20,8 @@ class DriverAvailability(Base):
     __tablename__ = "driver_availability"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    driver_id: Mapped[int] = mapped_column(foreignkey=("drivers.id"), nullable=False)
+    driver_id: Mapped[int] = mapped_column(ForeignKey("drivers.id"), nullable=False)
     day_of_week: Mapped[DayOfWeek] = mapped_column(SqlEnum(DayOfWeek), nullable=False)
     start_time: Mapped[time] = mapped_column(nullable=False)
     end_time: Mapped[time] = mapped_column(nullable=False)
-    driver = Mapped["Driver"] = relationship("Driver", back_populates="availabilities")
+    driver: Mapped["Driver"] = relationship("Driver", back_populates="availabilities")
