@@ -1,4 +1,4 @@
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     PROJECT_NAME: str = "Sylvaline Hire"
@@ -13,7 +13,9 @@ class Settings(BaseSettings):
     NOMBA_ACCOUNT_ID: str 
     NOMBA_WEBHOOK_SECRET: str
     SUB_ACCOUNT_ID: str
-    
+    NOMBA_BASE_URL: str 
+
+    #SMTP Configuration
     SMTP_HOST: str | None = None
     SMTP_PORT: int = 587
     SMTP_USERNAME: str | None = None
@@ -21,18 +23,15 @@ class Settings(BaseSettings):
     SMTP_FROM_EMAIL: str | None = None
     SMTP_FROM_NAME: str = "Sylvaline Hire"
     SMTP_USE_TLS: bool = True
+
     PASSWORD_RESET_TOKEN_EXPIRE_MINUTES: int = 30
-    
-    NOMBA_BASE_URL: str 
-    
     
     DATABASE_URL: str 
     FRONTEND_URL: str
 
-    class Config:
-        
-        env_file = ".env"
-        
-        extra = "ignore"
+    model_config = SettingsConfigDict(
+        env_file= ".env",
+        extra= "ignore"
+    )
 
 settings = Settings()

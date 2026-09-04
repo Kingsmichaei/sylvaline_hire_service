@@ -5,7 +5,7 @@ from app.core.config import settings
 from sqlalchemy.orm import Session
 from app.api.v1 import bookings
 import uuid
-
+# from app.db.database import get_db
 
 app = FastAPI(title=settings.PROJECT_NAME, version=settings.VERSION)
 
