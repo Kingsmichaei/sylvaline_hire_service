@@ -30,7 +30,7 @@ def health_check():
     """
     return {
         "status": "Green",
-        "service": "Sylvaline Backend"
+        "service": "Sylvaline Hire Backend"
     }
 
 
