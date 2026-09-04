@@ -3,13 +3,13 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from app.core.config import settings
 from sqlalchemy.orm import Session
-from app.api.v1 import bookings
-import uuid
+from app.api.v1 import bookings, auth
 # from app.db.database import get_db
 
 app = FastAPI(title=settings.PROJECT_NAME, version=settings.VERSION)
 
 app.include_router(bookings.router, prefix="/api/v1/bookings", tags=["Bookings"])
+app.include_router(auth.router, prefix="/api/v1/auth", tags=["Authentication"])
 
 
 
