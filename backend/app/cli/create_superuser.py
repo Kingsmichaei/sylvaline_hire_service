@@ -1,27 +1,37 @@
 from getpass import getpass
 from sqlalchemy.orm import Session
 from app.db.database import SessionLocal
+from app.db.init_db import init_db
 from app.models.user import User, UserRole
 from app.core.security import hash_password
 from pydantic import EmailStr, TypeAdapter, ValidationError
 
 def create_superuser():
+    init_db()
     db: Session = SessionLocal()
 
     try:
-        email_input = input("Email: ").strip()
-        try:
-            email = TypeAdapter(EmailStr).validate_python(email_input)
-        except ValidationError:
-            print("Error: Please enter a valid email address.")
-            return
+        while True:
+            email_input = input("Email: ").strip()
+            try:
+                email = TypeAdapter(EmailStr).validate_python(email_input)
+                break
+            except ValidationError:
+                print("Error: Please enter a valid email address.")
 
-        password = getpass("Password: ")
-        password_confirmation = getpass("Password (again): ")
+        while True:
+            password = getpass("Password: ")
+            
+            if not password:
+                print("Error: Password cannot be empty.")
+                continue
+        
+            password_confirmation = getpass("Password (again): ")
 
-        if password != password_confirmation:
-            print("Error: Passwords do not match.")
-            return
+            if password != password_confirmation:
+                print("Error: Passwords do not match.")
+                continue
+            break
 
         existing_user = db.query(User).filter(
             User.email == email

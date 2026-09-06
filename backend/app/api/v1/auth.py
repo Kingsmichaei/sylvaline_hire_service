@@ -8,9 +8,7 @@ from app.schemas.auth import TokenResponse
 from fastapi.security import OAuth2PasswordRequestForm
 
 
-router = APIRouter(
-    tags=["Authentication"]
-)
+router = APIRouter()
 
 
 @router.post("/login", response_model=TokenResponse)

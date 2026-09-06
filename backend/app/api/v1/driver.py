@@ -8,9 +8,7 @@ from app.models.user import User, UserRole
 from app.models.driver import Driver
 from app.schemas.driver import DriverCreate, DriverResponse
 
-router = APIRouter(
-    tags=["Drivers"]
-)
+router = APIRouter()
 
 @router.post("/", response_model=DriverResponse)
 def create_driver(
